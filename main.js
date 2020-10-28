@@ -19,6 +19,7 @@ var deCipherText = "";
 
 keyInput.focus();
 
+// updating key with user value
 const keyChange = () => {
     key = parseInt(keyInput.value);
 }
@@ -38,10 +39,12 @@ const createNewAlphabet = () => {
     }
 }
 
+// function to cipher the code
 const cipher = () => {
     keyChange();
     createNewAlphabet();
     text = inputText.value;
+    text = text.toLowerCase();
     for (i in text) {
         cipherText = cipherText + newAlphabet[alphabet.indexOf(text[i])];
     }
@@ -56,6 +59,7 @@ const decipher = () => {
     keyChange();
     createNewAlphabet();
     cipherText = inputText.value;
+    cipherText = cipherText.toLowerCase();
     for (i in cipherText) {
         deCipherText = deCipherText + alphabet[newAlphabet.indexOf(cipherText[i])];
     }
