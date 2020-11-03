@@ -1,6 +1,6 @@
 const cipherButton = document.getElementById("cipher");
 const decipherButton = document.getElementById("decipher");
-const keyInput = document.getElementById("keyInput");
+var keyInput = document.getElementById("keyInput");
 var inputText = document.getElementById("messageInput");
 var decipheredText = document.getElementById("result");
 
@@ -41,6 +41,9 @@ const createNewAlphabet = () => {
 
 // function to cipher the code
 const cipher = () => {
+    if (keyInput.value == "") {
+        keyInput.value = Math.floor((Math.random() * 10000));
+    }
     keyChange();
     createNewAlphabet();
     text = inputText.value;
@@ -56,17 +59,23 @@ const cipher = () => {
 
 // decipher function
 const decipher = () => {
-    keyChange();
-    createNewAlphabet();
-    cipherText = inputText.value;
-    cipherText = cipherText.toLowerCase();
-    for (i in cipherText) {
-        deCipherText = deCipherText + alphabet[newAlphabet.indexOf(cipherText[i])];
-    }
-    decipheredText.innerHTML = deCipherText;
-    decipheredText.style.display = "block";
-    deCipherText = "";
-    inputText.value = "";
+    if (keyInput.value == "") {
+        decipheredText.innerHTML = "You must enter your secret key!";
+        decipheredText.style.display = "block";
+        keyInput.focus();
+    } else {
+        keyChange();
+        createNewAlphabet();
+        cipherText = inputText.value;
+        cipherText = cipherText.toLowerCase();
+        for (i in cipherText) {
+            deCipherText = deCipherText + alphabet[newAlphabet.indexOf(cipherText[i])];
+        }
+        decipheredText.innerHTML = deCipherText;
+        decipheredText.style.display = "block";
+        deCipherText = "";
+        inputText.value = "";
+        }
 }
 
 cipherButton.onmouseup = cipher;
